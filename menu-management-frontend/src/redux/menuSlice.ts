@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Menu } from "../app/types/menu";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // 1) Get all menus
 export const fetchMenus = createAsyncThunk("menu/fetchMenus", async () => {
-  const res = await axios.get("/api/menus"); // calls Next route, which calls NestJS
+  const res = await axios.get("/api/menus");
   return res.data as Menu[];
 });
 
@@ -57,9 +59,7 @@ const initialState: MenuState = {
 const menuSlice = createSlice({
   name: "menu",
   initialState,
-  reducers: {
-    // 7) Save menu can be considered an 'updateMenu' or a local action
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // GET MENUS
     builder.addCase(fetchMenus.fulfilled, (state, action) => {
@@ -74,12 +74,15 @@ const menuSlice = createSlice({
     // CREATE MENU
     builder.addCase(addMenu.fulfilled, (state, action) => {
       state.menus.push(action.payload);
+      toast.success("Menu item added successfully!");
+    });
+    builder.addCase(addMenu.rejected, () => {
+      toast.error("Failed to add menu item.");
     });
 
     // UPDATE MENU
     builder.addCase(updateMenu.fulfilled, (state, action) => {
       const updated = action.payload;
-      // recursively update in menus
       function updateRecursively(list: Menu[]): Menu[] {
         return list.map((m) => {
           if (m.id === updated.id) {
@@ -92,12 +95,15 @@ const menuSlice = createSlice({
         });
       }
       state.menus = updateRecursively(state.menus);
+      toast.success("Menu item updated successfully!");
+    });
+    builder.addCase(updateMenu.rejected, () => {
+      toast.error("Failed to update menu item.");
     });
 
     // DELETE MENU
     builder.addCase(removeMenu.fulfilled, (state, action) => {
       const id = action.payload;
-      // recursively remove from menus
       function removeRecursively(list: Menu[]): Menu[] {
         return list
           .filter((m) => m.id !== id)
@@ -109,10 +115,13 @@ const menuSlice = createSlice({
           });
       }
       state.menus = removeRecursively(state.menus);
-      // reset currentMenu if needed
       if (state.currentMenu && state.currentMenu.id === id) {
         state.currentMenu = null;
       }
+      toast.success("Menu item deleted successfully!");
+    });
+    builder.addCase(removeMenu.rejected, () => {
+      toast.error("Failed to delete menu item.");
     });
   },
 });

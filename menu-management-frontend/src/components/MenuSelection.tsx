@@ -12,13 +12,11 @@ interface MenuSelectionProps {
 const MenuSelection: React.FC<MenuSelectionProps> = ({ selectedItem }) => {
   return (
     <div>
-      {/* Folder Path */}
-      <div className="flex items-center gap-2 text-gray-800 text-sm mb-6">
-        <Image src="/icons/folder.png" alt="Folder" width={20} height={20} />
+      <div className="flex items-start gap-2 text-gray-800 text-sm mb-6">
+        <img src="/icons/folder.png" alt="Folder" width={20} height={20} />
         <span>/ {selectedItem.label}</span>
       </div>
 
-      {/* Selected Item */}
       <div className="flex items-center gap-2 mt-4 p-2 rounded-lg">
         <img
           src={selectedItem.uiImage}

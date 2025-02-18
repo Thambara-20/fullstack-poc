@@ -86,10 +86,10 @@ export default function MenuManager() {
   };
 
   return (
-    <div className="scrollbar-hide overflow-y-auto h-5/6">
+    <div className="scroll-hide overflow-y-auto h-5/6 scrollbar-hide">
       <div>
         <label className="block text-gray-700 mt-4 text-sm">Menu</label>
-        <select className="border p-3 w-1/3 rounded-2xl text-slate-800">
+        <select className="border p-3 w-5/6 md:w-1/3 rounded-2xl text-slate-800">
           {menus.map((menu, index) => (
             <option key={index}>{menu?.name}</option>
           ))}

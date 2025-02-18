@@ -44,7 +44,7 @@ const AddEditMenu: React.FC<AddEditMenuProps> = ({
         type="text"
         value={calculateDepth(menu, menus)}
         readOnly
-        className="border p-4 text-slate-800 w-1/2 rounded-2xl bg-gray-100"
+        className="border p-4 text-slate-800 w-full md:w-1/2 rounded-2xl bg-gray-100"
       />
 
       <label className="block text-gray-700 mt-2">Parent Data</label>
@@ -52,7 +52,7 @@ const AddEditMenu: React.FC<AddEditMenuProps> = ({
         type="text"
         value={parentName}
         readOnly
-        className="border p-4 text-slate-800 w-1/2 rounded-2xl bg-gray-100"
+        className="border p-4 text-slate-800 w-full md:w-1/2 rounded-2xl bg-gray-100"
       />
 
       <label className="block text-gray-700 mt-2">Name</label>
@@ -60,7 +60,7 @@ const AddEditMenu: React.FC<AddEditMenuProps> = ({
         type="text"
         value={menu.name}
         onChange={(e) => onChange({ ...menu, name: e.target.value })}
-        className="border p-4 text-slate-800 w-1/2 rounded-2xl"
+        className="border p-4 text-slate-800 w-full md:w-1/2 rounded-2xl"
       />
 
       <button

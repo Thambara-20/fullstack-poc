@@ -2,29 +2,24 @@
 "use client";
 
 import { useState } from "react";
-import Sidebar, { SidebarItem, sidebarItems } from "@/components/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import Settings from "./pages/Settings";
+import Sidebar from "@/components/Sidebar";
 import MenuManager from "./pages/Menus";
 import MenuSelection from "@/components/MenuSelection";
+import { SidebarItem, sidebarItems } from "./types/menu";
 
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState<SidebarItem>(
-    sidebarItems[0]
+    sidebarItems[2]
   );
 
   console.log(selectedItem);
 
   const renderContent = () => {
     switch (selectedItem.label) {
-      case "dashboard":
-        return <Dashboard />;
       case "Menus":
         return <MenuManager />;
-      case "Systems":
-        return <Settings />;
       default:
-        return <div>Select an option from the sidebar.</div>;
+        return <p>Not implemeted.</p>;
     }
   };
 
