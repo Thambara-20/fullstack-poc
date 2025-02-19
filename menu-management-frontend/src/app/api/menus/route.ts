@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const NEST_BASE_URL = "http://localhost:3000/menus";
+const NEST_BASE_URL = process.env.NEST_BASE_URL as string;
 
-// GET all menus
 export async function GET() {
   const res = await fetch(NEST_BASE_URL);
   if (!res.ok) {
@@ -15,7 +14,6 @@ export async function GET() {
   return NextResponse.json(data);
 }
 
-// POST create new menu
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
