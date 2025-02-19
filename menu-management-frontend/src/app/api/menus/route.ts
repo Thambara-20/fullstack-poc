@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const NEST_BASE_URL = process.env.NEST_BASE_URL as string;
+const NEST_BASE_URL = process.env.NEXT_BASE_URL as string;
 
 export async function GET() {
   const res = await fetch(NEST_BASE_URL);
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     }
     const data = await res.json();
     return NextResponse.json(data);
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
