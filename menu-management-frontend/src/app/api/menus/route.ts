@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const NEST_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
 
 export async function GET() {
-  const res = await fetch(NEST_BASE_URL);
+  const res = await fetch(NEST_BASE_URL, { mode: "no-cors" });
   if (!res.ok) {
     return NextResponse.json(
       { error: "Failed to fetch menus" },
@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
+      mode: "no-cors",
     });
     if (!res.ok) {
       const err = await res.json();
