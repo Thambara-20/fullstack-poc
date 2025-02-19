@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const NEST_BASE_URL = process.env.NEXT_BASE_URL;
+const NEST_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 // GET specific menu by ID
 export async function GET(

@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SidebarItem } from "@/app/types/menu";
 import Image from "next/image";
-
 import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
@@ -16,14 +15,25 @@ const Sidebar = ({
   setSelectedItem,
 }: SidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <aside
       className={`bg-neutral-50 text-white p-4 transition-all duration-300
           w-full md:bg-gray-900
-          ${
-            isCollapsed ? "h-16 md:w-20 md:h-auto" : "h-fit md:w-64 md:h-full"
-          }`}
+          ${isCollapsed ? "h-16 md:w-20 md:h-auto" : "h-fit md:w-64 md:h-full"}
+      `}
     >
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         {!isCollapsed && (
@@ -39,15 +49,16 @@ const Sidebar = ({
 
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className={`pl-4 pb-2 bg-white md:bg-gray-900 rounded text-sm w-full${
+          className={`pl-4 pb-2 bg-white md:bg-gray-900 rounded text-sm w-full ${
             !isCollapsed ? "md:w-12" : ""
           }`}
         >
-          {window.innerWidth < 768 ? (
-            <img src="/icons/header-right.png"></img>
-          ) : (
-            <img src="/icons/header-left.png"></img>
-          )}
+          <img
+            src={
+              isMobile ? "/icons/header-right.png" : "/icons/header-left.png"
+            }
+            alt="Toggle Sidebar"
+          />
         </button>
       </div>
 

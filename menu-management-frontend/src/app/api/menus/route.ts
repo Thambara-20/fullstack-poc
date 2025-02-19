@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const NEST_BASE_URL = process.env.NEXT_BASE_URL as string;
+const NEST_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
 
 export async function GET() {
   const res = await fetch(NEST_BASE_URL);
